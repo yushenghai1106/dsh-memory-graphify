@@ -1,0 +1,28 @@
+# Installable profile layer for the graphify memory provider. It targets the
+# rows `dsh-base` ships (the disabled `memory-graphify` row and `tool-memory`),
+# so it must sit after `dsh-base` in `dsh.profile.bundles`; over any other tree
+# it warns and changes nothing. A patch replaces the targeted row's whole
+# config, which is why `tool-memory`'s tuned defaults are restated here with
+# the provider selection flipped to `graphify` and a larger recall limit.
+
+- id: memory-graphify
+  disabled: false
+  config:
+    # Deployment-specific: the absolute path of the graphify graph.json this
+    # deployment queries. An unset variable fails the plugin at load.
+    graphPath: !!js process.env.GRAPHIFY_GRAPH_PATH
+
+- id: tool-memory
+  config:
+    provider: graphify
+    memoryCharLimit: 2200
+    userCharLimit: 1375
+    recallLimit: 8
+    recallMaxChars: 6000
+    semanticWeight: 0.55
+    lexicalWeight: 0.2
+    entityWeight: 0.15
+    graphWeight: 0.025
+    prefetchTtlMs: 30000
+    autoRetain: true
+    autoRetainMaxChars: 4000

@@ -1,0 +1,50 @@
+# Keyless composition for the graphify memory provider proof. Every row is a
+# builtin registered by composition.spec.ts from workspace source modules, so
+# the spec boots a real Loader tree without prebuilt artifacts or a graphify
+# install. The spec patches the storage root, the graph path, and the stand-in
+# command at boot.
+
+- id: storage
+  name: cordis:memory-graphify-test-storage
+
+- id: storage-json
+  name: cordis:memory-graphify-test-storage-json
+  config:
+    root: /unset
+
+- id: storage-domain
+  name: cordis:memory-graphify-test-storage-domain
+  config:
+    backend: json
+
+- id: system-prompt
+  name: cordis:memory-graphify-test-system-prompt
+
+- id: tools
+  name: cordis:memory-graphify-test-tools
+
+- id: memory
+  name: cordis:memory-graphify-test-memory
+
+- id: memory-graphify
+  name: cordis:memory-graphify-test-provider
+  config:
+    graphPath: /unset/graphify-out/graph.json
+    command: node
+    commandArgs: ['/unset/standin.mjs']
+
+- id: tool-memory
+  name: cordis:memory-graphify-test-tool-memory
+  config:
+    provider: graphify
+    memoryCharLimit: 2200
+    userCharLimit: 1375
+    recallLimit: 8
+    recallMaxChars: 6000
+    semanticWeight: 0.55
+    lexicalWeight: 0.2
+    entityWeight: 0.15
+    graphWeight: 0.025
+    prefetchTtlMs: 30000
+    autoRetain: true
+    autoRetainMaxChars: 4000

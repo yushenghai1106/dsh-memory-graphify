@@ -1,0 +1,5 @@
+# Bilingual-pair consistency record, in the format the DeepSeek Harness pairing gate uses:
+# the git blob hash of each side as of the last confirmed-consistent state. Both
+# languages carry equal authority; after editing either side, bring the other along.
+README.md: 8974fd32100ff7543a7e4fed90b83a5f9f52b49a
+README.zh.md: 563cc5f8c98a1f928df5a9542a3ba76fa5c5fb43
